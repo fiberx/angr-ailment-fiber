@@ -230,6 +230,7 @@ class BinaryOp(Op):
         'CmpLEs': '<=s',
         'CmpGTs': '>s',
         'CmpGEs': '>=s',
+        'BOr': '|',
     }
 
     def __init__(self, idx, op, operands, signed, **kwargs):
