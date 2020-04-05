@@ -139,6 +139,7 @@ class VEXExprConverter(Converter):
 
         return ITE(manager.next_atom(), cond, iffalse, iftrue)
 
+    @staticmethod
     def CCall(expr, manager):
         if manager.arch.name == "AMD64":
             return AMD64CCallConverter.convert(expr, manager)
@@ -592,6 +593,7 @@ class AMD64CCallConverter(Converter):
                 l.warning("AMD64CCallConverter: Unsupported operation type %s in amd64g_calculate_rflags_all", type(cc_op))
                 return DirtyExpression(manager.next_atom(), expr, bits=expr.result_size(manager.tyenv))
 
+        @staticmethod
         def compute_flags_add(op1, op2, op_ndep, nbits, platform, manager):
             res = BinaryOp(manager.next_atom(), "Add", [op1, op2])
             # Carry flag
@@ -625,6 +627,7 @@ class AMD64CCallConverter(Converter):
             of = BinaryOp(manager.next_atom(), "Shr", [tmp, nbits - 2])
             return AMD64CCallConverter.concat_flags(cf, pf, af, zf, sf, of, platform, manager)
 
+        @staticmethod
         def concat_flags(cf, pf, af, zf, sf, of, platform, manager):
             flag_nums = []
             flag_nums.append(BinaryOp(manager.next_atom(), "Shl", [cf, vex_ccall.data[platform]["CondBitOffsets"]['G_CC_SHIFT_C']]))
